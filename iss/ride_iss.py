@@ -3,12 +3,14 @@
 
 import urllib.request
 import json
+import requests
 
 ## Define URL
 MAJORTOM = 'http://api.open-notify.org/astros.json'
 
 def main():
-        
+    ####### urllib.request version #######
+
     ## Call the webservice
     groundctrl = urllib.request.urlopen(MAJORTOM)
     
@@ -27,5 +29,16 @@ def main():
     #print(people)
     for astro in people:
        print(astro['name'], " on the ", astro['craft'])
+
+    ####### requests module version #######
     
+    ## Calls web service, converts to JSON
+    helmetson2= requests.get('http://api.open-notify.org/astros.json').json()
+    
+    ## print n
+    print("People in space:",helmetson2["number"])
+    
+    for astronaut in helmetson2["people"]:
+        print(f'{astronaut["name"]} is on the {astronaut["craft"]}')
+
 main()
