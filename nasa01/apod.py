@@ -5,8 +5,9 @@ from datetime import date
 # import webbrowser
 
 ## define some constants
-NASAAPI = 'https://api.nasa.gov/planetary/apod?' # this is our API to call
-MYKEY = 'api_key=QvKY4Eb5RG9Nr3O0EIScBzNiMBoEJrCDLdvzG0OG' ## this is our api key
+NASAAPI = 'https://api.nasa.gov/planetary/apod?'
+with open('nasa_api_key', 'r') as file:
+    MYKEY = "&api_key=" + file.read().replace('\n', '') 
 
 ## pretty print json
 def main():
@@ -35,7 +36,6 @@ def main():
     # Print the description of the photo we are about to view
     print(nasaread['explanation']) # display the value for the key explanation
     print("Link to the APOD:", nasaread.get('hdurl',"No HD URL for today!"))
-
 
     #input('\nPress ENTER to view this photo of the day') # pause for ENTER
     # webbrowser.open(nasaread['hdurl']) # open in the webbrowser
